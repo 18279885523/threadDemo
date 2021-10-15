@@ -10,7 +10,7 @@ public class Tortoise extends Animal {
 
     public void running() {
         // 跑的距离
-        double dis = 0.1;
+        double dis = 0.3;
         length -= dis;
         if (length <= 0) {
             length = 0;

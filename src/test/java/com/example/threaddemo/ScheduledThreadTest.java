@@ -16,9 +16,9 @@ public class ScheduledThreadTest {
         executorService.scheduleAtFixedRate(new TestRunnable(), 2, 1, TimeUnit.SECONDS);
         return executorService;
     }
-
     public static void main(String[] args) {
         new ScheduledThreadTest().ScheduledThreadPoolExecutorTest();
+
     }
 
     static class TestRunnable implements Runnable {

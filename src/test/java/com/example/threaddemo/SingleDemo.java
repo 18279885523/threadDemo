@@ -26,7 +26,7 @@ public class SingleDemo {
     }
 
 
-    //    public static void main(String[] args){
+//        public static void main(String[] args){
 //
 //        EatThread eatThread = new EatThread();
 //        DrinkThread drinkThread = new DrinkThread();
@@ -81,7 +81,7 @@ public class SingleDemo {
                     log.info(value);
                     log.info(getName() + "开始等待;当前时间秒数：" + Calendar.getInstance().get(Calendar.SECOND));
                     //让当前线程进行wait
-                    value.wait(10000);
+                    value.wait();
                     value.notify();
                 }
             } catch (InterruptedException e) {

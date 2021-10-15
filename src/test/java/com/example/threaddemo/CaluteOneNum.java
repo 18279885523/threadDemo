@@ -1,8 +1,11 @@
 package com.example.threaddemo;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+@Slf4j
 public class CaluteOneNum {
     private volatile static int num = 0;
 
@@ -14,11 +17,8 @@ public class CaluteOneNum {
             public void run() {
                 try {
                     num += 10;
-                    System.out.println(num);
-                    ot2.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                    log.info(num + "add10");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -28,13 +28,9 @@ public class CaluteOneNum {
         Thread add20 = new Thread(new Runnable() {
             public void run() {
                 try {
-                    ot2.await();
                     num += 20;
-                    System.out.println(num);
-                    ot3.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                    log.info(num + "add20");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -43,13 +39,9 @@ public class CaluteOneNum {
         Thread multi3 = new Thread(new Runnable() {
             public void run() {
                 try {
-                    ot3.await();
                     num *= 3;
-                    System.out.println(num);
-                    ot4.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                    log.info(num + "multi3");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -58,12 +50,9 @@ public class CaluteOneNum {
         Thread devide4 = new Thread(new Runnable() {
             public void run() {
                 try {
-                    ot4.await();
                     num /= 4;
-                    System.out.println(num);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                    log.info(num + "devide4");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -79,6 +68,6 @@ public class CaluteOneNum {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(num);
+        log.info(num + "");
     }
 }

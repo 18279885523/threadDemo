@@ -28,7 +28,7 @@ class TestRunnable implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + "  线程被调用了。第" + getCount() + "次");
-//        throw new Exception("a");
+        throw new Exception("a");
     }
 
     public static int getCount() {

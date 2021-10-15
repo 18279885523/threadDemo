@@ -1,55 +1,61 @@
 package com.example.threaddemo;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
+import java.util.logging.SimpleFormatter;
 
 public class DelayQueueTest {
-//    private static final DelayQueue<MyDelayed> delayQueue = new DelayQueue<>();
-//
-//    private static final ExecutorService service = Executors.newCachedThreadPool();
-//
-//    public static void main(String[] args) throws InterruptedException {
-//        ThreadPoolExecutor pool = new ThreadPoolExecutor(
-//                1,
-//                2,
-//                60,
-//                TimeUnit.SECONDS, new SynchronousQueue(),
-//                Executors.defaultThreadFactory(),
-//                new ThreadPoolExecutor.DiscardOldestPolicy()
-//        );
-//        service.submit(() -> {
-//            delayQueue.put(new MyDelayed("A-Task",5000));
-//            delayQueue.put(new MyDelayed("B-Task",4000));
-//            delayQueue.put(new MyDelayed("C-Task",3000));
-//            delayQueue.put(new MyDelayed("D-Task",2000));
-//            delayQueue.put(new MyDelayed("E-Task",1000));
-//        });
-//        while (true){
-//            System.out.println(delayQueue.take());
-//        }
-//    }
+    private static final DelayQueue<MyDelayed> delayQueue = new DelayQueue<>();
 
+    private static final ExecutorService service = Executors.newCachedThreadPool();
 
-    public static void main(String[] args) {
-        try {
-            ExecutorService es = Executors.newCachedThreadPool();
-            DelayQueue<DelayTask> queue = new DelayQueue<DelayTask>();
-            Random rand = new Random();
-            // add 20's DelayTask to DelayQueue
-            for (int i = 0; i < 20; i++) {
-                queue.add(new DelayTask(rand.nextInt(500)));
-            }
-            DelayTask delayTask = new DelayTask(501);
-            queue.add(delayTask);
-            es.execute(new DelayConsumer(queue));
-            TimeUnit.SECONDS.sleep(1);
-            es.shutdownNow();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws InterruptedException {
+
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(
+                1,
+                2,
+                60,
+                TimeUnit.SECONDS, new SynchronousQueue(),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.DiscardOldestPolicy()
+        );
+        service.submit(() -> {
+            delayQueue.put(new MyDelayed("A-Task",5000));
+            delayQueue.put(new MyDelayed("B-Task",4000));
+            delayQueue.put(new MyDelayed("C-Task",3000));
+            delayQueue.put(new MyDelayed("D-Task",2000));
+            delayQueue.put(new MyDelayed("E-Task",1000));
+        });
+        while (true){
+            System.out.println(delayQueue.take());
         }
     }
+
+
+//    public static void main(String[] args) {
+//        try {
+//            ExecutorService es = Executors.newCachedThreadPool();
+//            DelayQueue<DelayTask> queue = new DelayQueue<DelayTask>();
+//            Random rand = new Random();
+//            // add 20's DelayTask to DelayQueue
+//            for (int i = 0; i < 20; i++) {
+//                queue.add(new DelayTask(rand.nextInt(500)));
+//            }
+//            DelayTask delayTask = new DelayTask(501);
+//            queue.add(delayTask);
+//            es.execute(new DelayConsumer(queue));
+//            TimeUnit.SECONDS.sleep(1);
+//            es.shutdownNow();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 
 class DelayConsumer implements Runnable {
@@ -125,6 +131,8 @@ class DelayTask implements Runnable, Delayed {
     }
 
     public String toString() {
+        SimpleFormatter simpleFormatter = new SimpleFormatter();
+
         return "Task " + id + ":" +
                 ", nowTime=" + nowTime +
                 ", expireTime=" + time;

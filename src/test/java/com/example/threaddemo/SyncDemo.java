@@ -8,21 +8,21 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SyncDemo implements Runnable {
 
     //非公平锁，如果要改为公平锁时传入 true
-    //private ReentrantLock reentrantLock = new ReentrantLock();
+    private ReentrantLock reentrantLock = new ReentrantLock(true);
 
-    public synchronized void get() {
+    public  void get() {
         log.info("2 enter thread name-->" + Thread.currentThread().getName());
-        //reentrantLock.lock();
+        reentrantLock.lock();
         log.info("3 get thread name-->" + Thread.currentThread().getName());
         set();
-        //reentrantLock.unlock();
+        reentrantLock.unlock();
         log.info("5 leave run thread name-->" + Thread.currentThread().getName());
     }
 
-    public synchronized void set() {
-        //reentrantLock.lock();
+    public  void set() {
+        reentrantLock.lock();
         log.info("4 set thread name-->" + Thread.currentThread().getName());
-        //reentrantLock.unlock();
+        reentrantLock.unlock();
     }
 
     @Override

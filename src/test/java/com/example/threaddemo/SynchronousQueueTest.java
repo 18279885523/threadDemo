@@ -1,5 +1,7 @@
 package com.example.threaddemo;
 
+import lombok.SneakyThrows;
+
 import java.util.concurrent.*;
 
 public class SynchronousQueueTest {
@@ -11,6 +13,7 @@ public class SynchronousQueueTest {
     public static class MyTask implements Runnable {
         static int i = 1;
 
+        @SneakyThrows
         @Override
         public void run() {
             System.out.println(Thread.currentThread().getName() + "  线程被调用了。第" + getCount() + "次");
@@ -21,17 +24,18 @@ public class SynchronousQueueTest {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ThreadPoolExecutor pool = new ThreadPoolExecutor(
-                1,
                 2,
+                Integer.MAX_VALUE,
                 60,
-                TimeUnit.SECONDS, new SynchronousQueue(),
+                TimeUnit.SECONDS, new LinkedBlockingDeque<>(),
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.DiscardOldestPolicy()
         );
         for (int i = 0; i < 10; i++) {
             pool.execute(new MyTask());
+            Thread.sleep(2000);
         }
         pool.shutdown();
 //        service.submit(() -> {

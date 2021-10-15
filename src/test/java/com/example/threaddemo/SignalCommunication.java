@@ -37,6 +37,7 @@ public class SignalCommunication {
 //        // 实现线程B
 //        Thread threadB = new Thread(() -> {
 //            while (true) {
+//                log.info("" + notice);
 //                if (notice) {
 //                    log.info("线程B收到通知，开始执行处理...");
 //                    break;
@@ -44,14 +45,14 @@ public class SignalCommunication {
 //            }
 //        });
 //        //　需要先启动线程B
-//        threadB.start();
+//        threadA.start();
 //        try {
 //            Thread.sleep(1000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
 //        // 再启动线程A
-//        threadA.start();
+//        threadB.start();
 //    }
 
     /***
@@ -69,13 +70,13 @@ public class SignalCommunication {
 //                    list.add("abc");
 //                    log.info("线程A向list中添加一个元素，此时list中的元素个数为：" + list.size());
 //                    try {
-//                        Thread.sleep(500);
+//                        Thread.sleep(1000);
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
-//                    if (list.size() == 5)
-//                        // 唤醒B线程
+//                    if (list.size() == 5){
 //                        lock.notify();
+//                    }
 //                }
 //            }
 //        });
@@ -93,6 +94,7 @@ public class SignalCommunication {
 //                    }
 //                    log.info("线程B收到通知，开始执行自己的业务...");
 //                }
+//
 //            }
 //        });
 //        //　需要先启动线程B

@@ -27,7 +27,7 @@ class TestRunnable2 implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName() + "  线程被调用了。第" + getCount() + "次");
-        Thread.sleep(100000);
+        Thread.sleep(5000);
     }
 
     public static int getCount() {
@@ -41,7 +41,7 @@ class newFixedThreadPool {
          * 拥有固定数量线程的线程池
          * 如果有更多的任务，存储在 LinkedBlockingQueue 里。通常跟底层处理器CPU支持的线程总数有关。
          */
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         return executorService;
     }
 }

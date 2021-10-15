@@ -8,7 +8,7 @@ public class CachedThreadTest {
 
         ExecutorService executorService = new newCachedThreadPoolTest().newCachedThreadPoolTest();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             executorService.execute(new TestRunnable());
         }
         executorService.shutdown();

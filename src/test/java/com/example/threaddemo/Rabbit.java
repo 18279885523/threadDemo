@@ -27,6 +27,7 @@ public class Rabbit extends Animal {
         if (length % 2 == 0) {
             try {
                 sleep(1000);
+                System.out.println("休息了");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
